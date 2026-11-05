@@ -1,0 +1,246 @@
+<!doctype html>
+<html lang="it">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Plaza Café - Menù Digitale</title>
+    <meta
+      name="description"
+      content="Plaza Café - Menù Digitale interattivo. Caffetteria, pasticceria, rosticceria, aperitivi e cocktail bar a Capo D'Orlando."
+    />
+    <meta name="theme-color" content="#0d1418" />
+
+    <!-- Open Graph -->
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="Plaza Café - Menù Digitale" />
+    <meta
+      property="og:description"
+      content="Sfoglia il menù completo del Plaza Café a Capo D'Orlando."
+    />
+    <meta property="og:image" content="assets/logo.png" />
+
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <!-- Full screen black splash screen (z-40) -->
+    <div id="splash-overlay" class="splash-overlay"></div>
+
+    <!-- Venue background image with gradient overlay (-z-10) -->
+    <div class="site-background"></div>
+
+    <!-- Top bar: allergen button (left) & language selector (right) -->
+    <div id="top-bar" class="top-bar">
+      <div class="top-bar-inner">
+        <!-- Pulsante Allergeni (Posizionato in alto a sinistra) -->
+        <button
+          onclick="openModal('allergens-modal')"
+          class="allergens-top-btn"
+          aria-label="Tabella e Note Allergeni"
+          title="Tabella & Note Allergeni"
+        >
+          <span>⚠️</span>
+          <span class="allergens-label">Allergeni</span>
+        </button>
+
+        <!-- Quick language selector with flags -->
+        <div
+          class="lang-switcher"
+          role="toolbar"
+          aria-label="Cambio Lingua"
+        >
+          <button
+            onclick="changeLanguage('it')"
+            id="lang-it"
+            aria-label="Italiano"
+            class="lang-btn lang-btn-default is-active"
+          >
+            <img src="https://flagcdn.com/w80/it.png" alt="IT" />
+          </button>
+          <button
+            onclick="changeLanguage('en')"
+            id="lang-en"
+            aria-label="English"
+            class="lang-btn"
+          >
+            <img src="https://flagcdn.com/w80/gb.png" alt="EN" />
+          </button>
+          <button
+            onclick="changeLanguage('fr')"
+            id="lang-fr"
+            aria-label="Français"
+            class="lang-btn"
+          >
+            <img src="https://flagcdn.com/w80/fr.png" alt="FR" />
+          </button>
+          <button
+            onclick="changeLanguage('es')"
+            id="lang-es"
+            aria-label="Español"
+            class="lang-btn"
+          >
+            <img src="https://flagcdn.com/w80/es.png" alt="ES" />
+          </button>
+          <button
+            onclick="changeLanguage('de')"
+            id="lang-de"
+            aria-label="Deutsch"
+            class="lang-btn"
+          >
+            <img src="https://flagcdn.com/w80/de.png" alt="DE" />
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Header with the real Plaza Café logo -->
+    <header class="site-header">
+      <img
+        id="header-logo"
+        src="assets/logo.png"
+        alt="Plaza Café Logo"
+        class="header-logo"
+      />
+    </header>
+
+    <!-- Underlying content (badge, search, categories, footer) -->
+    <div id="sub-header-content" class="sub-header-content">
+      <!-- Time badge / recommendation of the moment -->
+      <div class="time-badge-wrapper">
+        <div class="time-badge">
+          <span id="ui-time-badge" class="time-badge-label"
+            >✨ In evidenza per questo orario</span
+          >
+          <span class="time-badge-clock" id="current-clock">--:--</span>
+        </div>
+      </div>
+
+      <!-- Quick search bar -->
+      <div class="search-wrapper">
+        <div class="search-field">
+          <svg
+            class="search-icon"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke="currentColor"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
+            />
+          </svg>
+          <input
+            type="text"
+            id="search-input"
+            oninput="handleSearch(this.value)"
+            placeholder="Cerca prodotti, cocktail, dolci..."
+            class="search-input"
+          />
+          <button
+            id="search-clear"
+            onclick="clearSearch()"
+            class="search-clear is-hidden"
+            aria-label="Annulla ricerca"
+          >
+            ✕
+          </button>
+        </div>
+      </div>
+
+      <!-- Main sections container (rendered dynamically via JS) -->
+      <main class="menu" id="menu-container"></main>
+
+      <!-- Footer with venue details, map, phone & opening hours -->
+      <footer id="footer-section" class="site-footer">
+        <h3 class="footer-title">BAR PASTICCERIA ROSTICCERIA</h3>
+        <p class="footer-subtitle">di Sebastiano Ciancio</p>
+
+        <!-- Clickable address linked to Google Maps -->
+        <p class="footer-line">
+          <a
+            href="https://maps.google.com/?q=Piazza+Matteotti+6,+98071+Capo+d'Orlando+ME"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="footer-address-link"
+            title="Apri su Google Maps"
+          >
+            <svg
+              class="footer-address-icon"
+              fill="currentColor"
+              viewBox="0 0 20 20"
+            >
+              <path
+                fill-rule="evenodd"
+                d="M5.05 4.05a7 7 0 119.9 9.9L10 18.9l-4.95-4.95a7 7 0 010-9.9zM10 11a2 2 0 100-4 2 2 0 000 4z"
+                clip-rule="evenodd"
+              />
+            </svg>
+            <span>Piazza Matteotti 6 - Capo D'Orlando (ME)</span>
+          </a>
+        </p>
+
+        <!-- Callable phone number -->
+        <p class="footer-line footer-line-phone">
+          Tel.
+          <a href="tel:0941013019" class="footer-phone-link">0941 013019</a>
+        </p>
+
+        <!-- Opening hours & closing day -->
+        <div class="footer-hours">
+          <p class="footer-hours-title">
+            🕒 Mercoledì – Lunedì: 06:00 - 00:00 •
+            <span class="footer-hours-closed">Martedì chiuso</span>
+          </p>
+          <p class="footer-hours-note">
+            🫒 Dalle 18:00 alle 20:00: Stuzzichini della casa inclusi con ogni
+            aperitivo.
+          </p>
+        </div>
+      </footer>
+    </div>
+
+    <!-- Food allergens modal -->
+    <div id="allergens-modal" class="modal is-hidden">
+      <div class="modal-panel">
+        <button
+          onclick="closeModal('allergens-modal')"
+          class="modal-close"
+        >
+          ✕
+        </button>
+        <h3 class="modal-title">
+          <span>⚠️</span> Informazioni sugli Allergeni
+        </h3>
+        <div id="ui-modal-allergens" class="modal-body">
+          <p>
+            Ai sensi del Regolamento UE 1169/2011, informiamo la gentile
+            clientela che nei nostri prodotti possono essere presenti sostanze
+            che provocano allergie o intolleranze.
+          </p>
+          <p class="modal-note">
+            Per qualsiasi dubbio, intolleranza o richiesta specifica relativa
+            alla preparazione dei piatti e delle bevande,
+            <strong
+              >si prega di consultare direttamente il personale di sala</strong
+            >
+            prima di ordinare.
+          </p>
+          <div class="modal-footnote">
+            Disponibili su richiesta opzioni senza glutine (es. brioche
+            gluten-free) e latte vegetale (soia).
+          </div>
+        </div>
+        <button
+          onclick="closeModal('allergens-modal')"
+          class="modal-confirm"
+        >
+          Ho capito
+        </button>
+      </div>
+    </div>
+
+    <!-- JavaScript Script -->
+    <script src="index.js"></script>
+  </body>
+</html>
