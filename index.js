@@ -958,7 +958,7 @@ function renderMenu() {
 
     // Aperitif banner
     let snackBadge = '';
-    if (cat.info && currentHour >= 18 && currentHour < 20) {
+    if (cat.info && currentHour >= 11 && currentHour < 22) {
       snackBadge = `
                   <div class="snack-banner">
                       <span class="snack-banner-icon">🫒</span> <span>${t.snackInfo}</span>
