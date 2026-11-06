@@ -1001,7 +1001,6 @@ function renderMenu() {
 
               <div id="content-${key}" class="accordion-wrapper ${openClass} category-content">
                   <div class="accordion-inner category-content-inner">
-                      ${snackBadge}
                       <div class="menu-items-grid">
                           ${itemsCardsHtml}
                       </div>
