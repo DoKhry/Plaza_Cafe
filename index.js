@@ -824,13 +824,13 @@ function getOrderedCategories() {
     ];
   } else if (hour >= 11 && hour < 14) {
     return [
+      'aperitivi',
       'tavolacalda',
       'bibite',
       'caffetteria',
       'pasticceria',
       'granite',
       'gelateria',
-      'aperitivi',
       'cocktails',
       'gintoneria',
       'whisky',
@@ -840,13 +840,13 @@ function getOrderedCategories() {
     ];
   } else if (hour >= 14 && hour < 18) {
     return [
+      'aperitivi',
       'granite',
       'gelateria',
       'bibite',
       'caffetteria',
       'pasticceria',
       'tavolacalda',
-      'aperitivi',
       'cocktails',
       'gintoneria',
       'whisky',
@@ -854,7 +854,7 @@ function getOrderedCategories() {
       'birre',
       'grappe',
     ];
-  } else if (hour >= 18 && hour < 20) {
+  } else if (hour >= 18 && hour < 22) {
     return [
       'aperitivi',
       'tavolacalda',
@@ -956,15 +956,7 @@ function renderMenu() {
 
     let itemsCardsHtml = '';
 
-    // Aperitif banner
-    let snackBadge = '';
-    if (cat.info && currentHour >= 11 && currentHour < 22) {
-      snackBadge = `
-                  <div class="snack-banner">
-                      <span class="snack-banner-icon">🫒</span> <span>${t.snackInfo}</span>
-                  </div>
-              `;
-    }
+  
 
     filteredItems.forEach((item) => {
       const itemName = item.name[currentLang] || item.name['it'];
