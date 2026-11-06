@@ -18,12 +18,12 @@ relevant section comes first.
 
 ## Project structure
 
-| File | Purpose |
-| --- | --- |
-| [plaza-cafe.html](plaza-cafe.html) | Page markup |
-| [styles.css](styles.css) | All styling (plain CSS, no framework) |
-| [index.js](index.js) | Menu data, translations and page behaviour (vanilla JS) |
-| `assets/` | Logo and background image |
+| File                     | Purpose                                                 |
+| ------------------------ | ------------------------------------------------------- |
+| [index.html](index.html) | Page markup                                             |
+| [styles.css](styles.css) | All styling (plain CSS, no framework)                   |
+| [index.js](index.js)     | Menu data, translations and page behaviour (vanilla JS) |
+| `assets/`                | Logo and background image                               |
 
 ## Running it
 
